@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="646.0" prefWidth="775.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="AddPartFXMLController">
+   <children>
+      <RadioButton fx:id="inHouseButton" layoutX="180.0" layoutY="31.0" mnemonicParsing="false" text="In-House" />
+      <RadioButton fx:id="outSourceButton" layoutX="305.0" layoutY="31.0" mnemonicParsing="false" text="Outsourced" />
+      <Label fx:id="addPartLabel" layoutX="42.0" layoutY="31.0" text="Add Part">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
