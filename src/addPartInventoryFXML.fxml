@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="addIdLabel" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddPartInventoryFXMLController">
+    <children>
+      <RadioButton fx:id="inHouseButton" layoutX="180.0" layoutY="31.0" mnemonicParsing="false" prefWidth="240.0" text="In-House" onAction="#displayRadio"/>
+      <RadioButton fx:id="outSourceButton" layoutX="305.0" layoutY="31.0" mnemonicParsing="false" text="Outsourced" onAction="#displayRadio"/>
+      <Label fx:id="addPartLabel" layoutX="42.0" layoutY="31.0" text="Add Part">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="partIdLabel" layoutX="68.0" layoutY="67.0" text="ID">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="partNameLabel" layoutX="66.0" layoutY="102.0" text="Name">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="partInvLabel" layoutX="65.0" layoutY="136.0" text="Inv">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="partCostLabel" layoutX="64.0" layoutY="175.0" text="Price/Cost">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="partMaxLabel" layoutX="68.0" layoutY="213.0" text="Max">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="partIdField" editable="false" layoutX="176.0" layoutY="63.0" text="Auto" />
+      <TextField fx:id="partNameField" layoutX="176.0" layoutY="98.0" />
+      <TextField fx:id="partInvField" layoutX="176.0" layoutY="132.0" />
+      <TextField fx:id="partCostField" layoutX="176.0" layoutY="171.0" />
+      <TextField fx:id="partMaxField" layoutX="176.0" layoutY="209.0" />
+      <TextField fx:id="differField" layoutX="176.0" layoutY="244.0" />
+      <Label fx:id="partMinLabel" layoutX="360.0" layoutY="213.0" text="Min">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="partMinField" layoutX="420.0" layoutY="209.0" />
+      <ButtonBar layoutX="383.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+            <Button fx:id="partSaveButton" mnemonicParsing="false" onAction="#saveButton" text="Save" />
+            <Button fx:id="partCancelButton" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
+        </buttons>
+      </ButtonBar>
+      <Label fx:id="differLabel" layoutX="67.0" layoutY="248.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

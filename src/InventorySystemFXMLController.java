@@ -1,12 +1,9 @@
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
 import Classes.InHouse;
-import Classes.OutSourced;
 import Classes.Part;
 import Classes.Product;
 import java.io.IOException;
@@ -36,9 +33,10 @@ import javafx.stage.Stage;
  *
  * @author Redfi
  */
-public class MainFXMLController implements Initializable {
-    @FXML
-    private AnchorPane inventorySystem;
+public class InventorySystemFXMLController implements Initializable {
+
+    public static int partId = 4;
+
     @FXML
     private AnchorPane partInventory;
     @FXML
@@ -70,8 +68,8 @@ public class MainFXMLController implements Initializable {
     @FXML
     private TextField searchProduct;
     
-    private ObservableList <Part> allParts = FXCollections.observableArrayList();
-    private ObservableList <Product> allProducts = FXCollections.observableArrayList();
+    private static ObservableList <Part> allParts = FXCollections.observableArrayList();
+    private static ObservableList <Product> allProducts = FXCollections.observableArrayList();
     @FXML
     private TableColumn partIdCol;
     @FXML
@@ -108,7 +106,9 @@ public class MainFXMLController implements Initializable {
         
         
         allParts.add(new InHouse(1, "Brakes",15.00,10,1,20,111));
-        allParts.add(new OutSourced(1000, "Giant Bike",299.99,5,1,20,"Super Bikes"));
+        allParts.add(new InHouse(2, "Wheels",11.00,16,1,20,112));
+        allParts.add(new InHouse(3, "Seat",15.00,10,1,20,113));
+        //allProducts.add(new OutSourced(1000, "Giant Bike",299.99,5,1,20,"Super Bikes"));
         
     }  
     
@@ -116,7 +116,7 @@ public class MainFXMLController implements Initializable {
      *
      * @param newPart
      */
-    public void addPart(Part newPart){
+    public static void addPart(Part newPart){
         allParts.add(newPart);
     }
     
@@ -127,7 +127,7 @@ public class MainFXMLController implements Initializable {
     public void addPartButton(ActionEvent actionEvent){
         try {
         System.out.println("Add part button has been clicked");
-        FXMLLoader loadPartMenu = new FXMLLoader(getClass().getClassLoader().getResource("AddPartFXML.fxml"));
+        FXMLLoader loadPartMenu = new FXMLLoader(getClass().getClassLoader().getResource("AddPartInventoryFXML.fxml"));
        System.out.println(loadPartMenu);
         Parent addP = loadPartMenu.load();
         System.out.println(addP);
@@ -137,7 +137,7 @@ public class MainFXMLController implements Initializable {
         addPartStage.setScene(addPartScene);
         addPartStage.show();
         }catch (IOException ex) {
-            Logger.getLogger(MainFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InventorySystemFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -145,7 +145,6 @@ public class MainFXMLController implements Initializable {
     public void exitButton(ActionEvent actionEvent){
          System.out.println("Exit button has been clicked");
         System.exit(0);
-    }
-    
+    }   
     
 }

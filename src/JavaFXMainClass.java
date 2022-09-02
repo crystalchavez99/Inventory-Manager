@@ -25,7 +25,7 @@ public class JavaFXMainClass extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("MainFXML.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("InventorySystemFXML.fxml"));
             
             Scene scene = new Scene(root, 1000, 500);
             
