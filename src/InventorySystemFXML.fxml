@@ -29,7 +29,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TableView fx:id="partTable" layoutX="10.0" layoutY="37.0" prefHeight="200.0" prefWidth="415.0">
+            <TableView fx:id="partTable" layoutX="10.0" layoutY="37.0" prefHeight="200.0" prefWidth="415.0" onMouseClicked="#partTableClick" >
               <columns>
                 <TableColumn fx:id="partIdCol" prefWidth="75.0" text="Part ID" />
                 <TableColumn fx:id="partNameCol" prefWidth="97.0" text="Part Name" />

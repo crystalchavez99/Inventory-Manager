@@ -4,6 +4,7 @@
  */
 
 import Classes.InHouse;
+import Classes.OutSourced;
 import static java.lang.Character.isAlphabetic;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 /**
@@ -69,13 +71,22 @@ public class UpdatePartInventoryFXMLController implements Initializable {
     private double partCost;
     private int partInv;
     private int partMachineId;
-
+    private InHouse inHousePart = null;
+    private OutSourced outsourcedPart = null;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        System.out.println("Init! " +InventorySystemFXMLController.chosenPart);
+//        if(InventorySystemFXMLController.chosenPart.getClass() === InHouse.class){
+//            inHouseButton.setSelected(true);
+//            inHousePart = (InHouse) InventorySystemFXMLController.chosenPart;
+//        }else{
+//            outSourceButton.setSelected(true);
+//            outsourcedPart = (OutSourced) InventorySystemFXMLController.chosenPart;
+//        }
     }    
     
     

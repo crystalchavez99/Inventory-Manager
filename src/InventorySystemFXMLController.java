@@ -19,12 +19,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -68,6 +70,11 @@ public class InventorySystemFXMLController implements Initializable {
     @FXML
     private TextField searchProduct;
     
+    public static Part chosenPart = null;
+    /** Temporary storage for a selected Product.
+     */
+    public static Product chosenProduct = null;
+    
     private static ObservableList <Part> allParts = FXCollections.observableArrayList();
     private static ObservableList <Product> allProducts = FXCollections.observableArrayList();
     @FXML
@@ -87,7 +94,6 @@ public class InventorySystemFXMLController implements Initializable {
     @FXML
     private TableColumn productInvLeveColl;
     
-    private static Part selectedPart = null;
     /**
      * Initializes the controller class.
      */
@@ -144,9 +150,10 @@ public class InventorySystemFXMLController implements Initializable {
     }
     
     @FXML
-    public void updatePartButton(ActionEvent actionEvent){
-        try {
-        System.out.println("Add part button has been clicked");
+    public void updatePartButton(ActionEvent actionEvent) throws IOException{
+        System.out.println("Update part! " + chosenPart);
+        if(chosenPart != null){
+            System.out.println("Add part button has been clicked");
         FXMLLoader loadPartMenu = new FXMLLoader(getClass().getClassLoader().getResource("UpdatePartInventoryFXML.fxml"));
        System.out.println(loadPartMenu);
         Parent updateP = loadPartMenu.load();
@@ -156,8 +163,24 @@ public class InventorySystemFXMLController implements Initializable {
         Stage updatePartStage = new Stage();
         updatePartStage.setScene(updatePartScene);
         updatePartStage.show();
-        }catch (IOException ex) {
-            Logger.getLogger(InventorySystemFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            Alert warning = new Alert(Alert.AlertType.WARNING);
+            warning.setContentText("Please select part!");
+            warning.show();
+        }
+    }
+    
+    public void selectedPart(){
+        chosenProduct = null;
+        chosenPart = allParts.get(allParts.indexOf(partTable.getSelectionModel().getSelectedItem()));
+        System.out.println("Chosen Part!" + chosenPart);
+    }
+    
+    public void partTableClick(MouseEvent mouseEvent){
+        
+        if(!partTable.getSelectionModel().isEmpty()){
+            System.out.println("Clicked!");
+            selectedPart();
         }
     }
     
