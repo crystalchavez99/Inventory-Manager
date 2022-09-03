@@ -20,7 +20,7 @@
             <ButtonBar fx:id="partButtonBar" layoutX="160.0" layoutY="244.0" prefHeight="40.0" prefWidth="200.0">
               <buttons>
                   <Button fx:id="addPart" mnemonicParsing="false" text="Add" onAction="#addPartButton" />
-                  <Button fx:id="editPart" mnemonicParsing="false" text="Modify" />
+                  <Button fx:id="editPart" mnemonicParsing="false" text="Modify" onAction="#updatePartButton"/>
                   <Button fx:id="deletePart" mnemonicParsing="false" text="Delete" />
               </buttons>
             </ButtonBar>

@@ -4,6 +4,7 @@
  */
 
 import Classes.InHouse;
+import static java.lang.Character.isAlphabetic;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -14,24 +15,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import static java.lang.Character.isAlphabetic;
-import javafx.scene.control.ToggleGroup;
+
 /**
  * FXML Controller class
  *
  * @author Redfi
  */
-public class AddPartInventoryFXMLController implements Initializable {
+public class UpdatePartInventoryFXMLController implements Initializable {
+
     @FXML
     private RadioButton inHouseButton;
     @FXML
     private RadioButton outSourceButton;
     @FXML
-    private Label addPartLabel;
-    @FXML
-    private AnchorPane addIdLabel;
+    private Label modifyPartLabel;
     @FXML
     private Label partIdLabel;
     @FXML
@@ -43,12 +41,6 @@ public class AddPartInventoryFXMLController implements Initializable {
     @FXML
     private Label partMaxLabel;
     @FXML
-    private Label partMinLabel;
-    @FXML
-    private Button partSaveButton;
-    @FXML
-    private Button partCancelButton;
-    @FXML
     private TextField partIdField;
     @FXML
     private TextField partNameField;
@@ -58,9 +50,18 @@ public class AddPartInventoryFXMLController implements Initializable {
     private TextField partCostField;
     @FXML
     private TextField partMaxField;
-    private TextField partMachIdField;
+    @FXML
+    private TextField differField;
+    @FXML
+    private Label partMinLabel;
     @FXML
     private TextField partMinField;
+    @FXML
+    private Button partSaveButton;
+    @FXML
+    private Button partCancelButton;
+    @FXML
+    private Label differLabel;
     
     private String partName;
     private int partMin;
@@ -68,44 +69,34 @@ public class AddPartInventoryFXMLController implements Initializable {
     private double partCost;
     private int partInv;
     private int partMachineId;
-    @FXML
-    private TextField differField;
-    @FXML
-    private Label differLabel;
+
     /**
      * Initializes the controller class.
-     * @param url
-     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        ToggleGroup group = new ToggleGroup();
-        inHouseButton.setToggleGroup(group);
-        outSourceButton.setToggleGroup(group);
-        inHouseButton.setSelected(true);
-        if(inHouseButton.isSelected()){
-            differLabel.setText("Machine ID");
-        }
     }    
     
-    /**
-     *
-     * @return
-     */
+    
+    
     public boolean validation(){
         System.out.print("Entered valid method!");
         Alert invalid = new Alert(Alert.AlertType.WARNING);
         System.out.println(partNameField.getText());
         if(partNameField.getText() == ""){
             System.out.println("Entered invalid name method!");
-            invalid.setContentText("Name must start with a letter!");
+            invalid.setContentText("Must start with a letter!");
             invalid.show();
             return false;
         }
         if(isAlphabetic(partNameField.getText().charAt(0))){
             partName = partNameField.getText();
             System.out.println("valid!" + partName);
+        }else{
+            invalid.setContentText("Must start with a letter!");
+            invalid.show();
+            return false;
         }
         
         if(partCostField.getText() == null){
@@ -176,7 +167,6 @@ public class AddPartInventoryFXMLController implements Initializable {
         }
         return true;  
     }
-    
     /**
      *
      * @param actionEvent
@@ -187,6 +177,8 @@ public class AddPartInventoryFXMLController implements Initializable {
         Stage addPartStage = (Stage) partCancelButton.getScene().getWindow();
         addPartStage.close();
     }
+    
+    
     
     /**
      *
@@ -214,7 +206,6 @@ public class AddPartInventoryFXMLController implements Initializable {
         }
         
     }
-    
     /**
      *
      * @param actionEvent
@@ -227,5 +218,4 @@ public class AddPartInventoryFXMLController implements Initializable {
             differLabel.setText("Company Name");
         }
     }
-    
 }

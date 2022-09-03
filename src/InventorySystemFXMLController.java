@@ -86,6 +86,8 @@ public class InventorySystemFXMLController implements Initializable {
     private TableColumn partInvLeveCol;
     @FXML
     private TableColumn productInvLeveColl;
+    
+    private static Part selectedPart = null;
     /**
      * Initializes the controller class.
      */
@@ -140,6 +142,28 @@ public class InventorySystemFXMLController implements Initializable {
             Logger.getLogger(InventorySystemFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @FXML
+    public void updatePartButton(ActionEvent actionEvent){
+        try {
+        System.out.println("Add part button has been clicked");
+        FXMLLoader loadPartMenu = new FXMLLoader(getClass().getClassLoader().getResource("UpdatePartInventoryFXML.fxml"));
+       System.out.println(loadPartMenu);
+        Parent updateP = loadPartMenu.load();
+        System.out.println(updateP);
+        Scene updatePartScene = new Scene(updateP);
+        System.out.println(updatePartScene);
+        Stage updatePartStage = new Stage();
+        updatePartStage.setScene(updatePartScene);
+        updatePartStage.show();
+        }catch (IOException ex) {
+            Logger.getLogger(InventorySystemFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
+   
     
     @FXML
     public void exitButton(ActionEvent actionEvent){
