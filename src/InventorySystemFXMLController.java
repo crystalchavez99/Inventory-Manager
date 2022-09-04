@@ -8,6 +8,7 @@ import Classes.Part;
 import Classes.Product;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -132,7 +134,9 @@ public class InventorySystemFXMLController implements Initializable {
         allParts.set(index, updatePart);
     }
     
-    
+    public static boolean deletePart(Part removePart){
+        return allParts.remove(removePart);
+    }
     
     
     @FXML
@@ -188,6 +192,28 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+    public void deletePartButton(ActionEvent actionEvent) throws IOException{
+        System.out.println("Delete has been clicked!");
+        if(chosenPart != null){
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setContentText("Please confirm deletion!");
+            Optional<ButtonType> decide = confirm.showAndWait();
+            if(!decide.isPresent()){
+                Alert info = new Alert(Alert.AlertType.INFORMATION);
+                info.setContentText(chosenPart.getName() + " not deleted yet!");
+                info.show();
+                chosenPart = null;
+            }else if(decide.get() == ButtonType.OK){
+                deletePart(chosenPart);
+                chosenPart = null;
+            }else if(decide.get() == ButtonType.CANCEL){
+                Alert info = new Alert(Alert.AlertType.INFORMATION);
+                info.setContentText(chosenPart.getName() + " not deleted yet!");
+                info.show();
+                chosenPart = null;
+            }
+        }
+    }
     
     
    

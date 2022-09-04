@@ -21,7 +21,7 @@
               <buttons>
                   <Button fx:id="addPart" mnemonicParsing="false" text="Add" onAction="#addPartButton" />
                   <Button fx:id="editPart" mnemonicParsing="false" text="Modify" onAction="#updatePartButton"/>
-                  <Button fx:id="deletePart" mnemonicParsing="false" text="Delete" />
+                  <Button fx:id="deletePart" mnemonicParsing="false" text="Delete" onAction="#deletePartButton" />
               </buttons>
             </ButtonBar>
             <Label layoutX="12.0" layoutY="14.0" text="Parts">
