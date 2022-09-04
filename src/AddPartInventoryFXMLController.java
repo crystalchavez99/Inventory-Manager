@@ -87,6 +87,8 @@ public class AddPartInventoryFXMLController implements Initializable {
         if(inHouseButton.isSelected()){
             differLabel.setText("Machine ID");
         }
+        int id = InventorySystemFXMLController.partId;
+        partIdField.setText(Integer.toString(id));
     }    
     
     /**
