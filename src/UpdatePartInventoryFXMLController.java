@@ -72,21 +72,29 @@ public class UpdatePartInventoryFXMLController implements Initializable {
     private int partInv;
     private int partMachineId;
     private InHouse inHousePart = null;
-    private OutSourced outsourcedPart = null;
+    private OutSourced outSourcedPart = null;
+    private int modIndex;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        System.out.println("Init! " +InventorySystemFXMLController.chosenPart);
-//        if(InventorySystemFXMLController.chosenPart.getClass() === InHouse.class){
-//            inHouseButton.setSelected(true);
-//            inHousePart = (InHouse) InventorySystemFXMLController.chosenPart;
-//        }else{
-//            outSourceButton.setSelected(true);
-//            outsourcedPart = (OutSourced) InventorySystemFXMLController.chosenPart;
-//        }
+        System.out.println("Init! " +InventorySystemFXMLController.chosenPart.getClass());
+        System.out.println(InHouse.class);
+        ToggleGroup group = new ToggleGroup();
+        inHouseButton.setToggleGroup(group);
+        outSourceButton.setToggleGroup(group);
+        if(InventorySystemFXMLController.chosenPart.getClass() == InHouse.class){
+            inHouseButton.setSelected(true);
+            inHousePart = (InHouse) InventorySystemFXMLController.chosenPart;
+        }else{
+            outSourceButton.setSelected(true);
+            outSourcedPart = (OutSourced) InventorySystemFXMLController.chosenPart;
+        }
+        displayRadio();
+        modPartInfo();
+        
     }    
     
     
@@ -197,23 +205,26 @@ public class UpdatePartInventoryFXMLController implements Initializable {
      */
     @FXML
     public void saveButton(ActionEvent actionEvent){
-        System.out.println("Save button has been clicked");
-        boolean inHousePart = inHouseButton.isSelected();
-        System.out.println("inHousePart " + inHousePart);
-        int id = InventorySystemFXMLController.partId;
-        System.out.println("id " + id);
-        //System.out.print(validation());
         if(validation()){
-            System.out.println("Passed valid");
-            if(inHousePart){
-                InventorySystemFXMLController.addPart(new InHouse(id,partName,partCost,partInv,partMin,partMax,partMachineId));
+            modIndex = InventorySystemFXMLController.allParts.indexOf(InventorySystemFXMLController.chosenPart);
+            int modPartId = Integer.parseInt(partIdField.getText());
+            String modPartName = partNameField.getText();
+            double modPartCost = Double.parseDouble(partCostField.getText());
+            int modPartInv = Integer.parseInt(partInvField.getText());
+            int modPartMax = Integer.parseInt(partMaxField.getText());
+            int modPartMin = Integer.parseInt(partMinField.getText());
+            if(inHouseButton.isSelected()){
+                int modMachineId = Integer.parseInt(differField.getText());
+                InHouse modPart = new InHouse(modPartId,modPartName,modPartCost,modPartInv,modPartMax, modPartMin,modMachineId  );
+                InventorySystemFXMLController.updatePart(modIndex, modPart);
+            }else{
+                String modCompanyName = differField.getText();
+                OutSourced modPart = new OutSourced(modPartId,modPartName,modPartCost,modPartInv,modPartMax, modPartMin,modCompanyName  );
+                InventorySystemFXMLController.updatePart(modIndex, modPart);
             }
-            InventorySystemFXMLController.partId++;
-            System.out.println(id);
-            Stage addPartStage = (Stage) partCancelButton.getScene().getWindow();
-            addPartStage.close();
-        }else{
-            System.out.println("Invalid");
+            Stage modPartStage = (Stage) partCancelButton.getScene().getWindow();
+            modPartStage.close();
+            
         }
         
     }
@@ -222,11 +233,31 @@ public class UpdatePartInventoryFXMLController implements Initializable {
      * @param actionEvent
      */
     @FXML
-    public void displayRadio(ActionEvent actionEvent){
+    public void displayRadio(){
         if(inHouseButton.isSelected()){
             differLabel.setText("Machine ID");
         }else{
             differLabel.setText("Company Name");
+        }
+    }
+    
+    public void modPartInfo(){
+        if(inHousePart != null){
+            partIdField.setText(String.valueOf(inHousePart.getId()));
+            partNameField.setText(String.valueOf(inHousePart.getName()));
+            partInvField.setText(String.valueOf(inHousePart.getStock()));
+            partCostField.setText(String.valueOf(inHousePart.getPrice()));
+            partMaxField.setText(String.valueOf(inHousePart.getMax()));
+            partMinField.setText(String.valueOf(inHousePart.getMin()));
+            differField.setText(String.valueOf(inHousePart.getMachineId()));
+        }else if(outSourcedPart != null){
+            partIdField.setText(String.valueOf(outSourcedPart.getId()));
+            partNameField.setText(String.valueOf(outSourcedPart.getName()));
+            partInvField.setText(String.valueOf(outSourcedPart.getStock()));
+            partCostField.setText(String.valueOf(outSourcedPart.getPrice()));
+            partMaxField.setText(String.valueOf(outSourcedPart.getMax()));
+            partMinField.setText(String.valueOf(outSourcedPart.getMin()));
+            differField.setText(String.valueOf(outSourcedPart.getCompanyName()));
         }
     }
 }

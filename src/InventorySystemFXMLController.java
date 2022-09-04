@@ -75,7 +75,7 @@ public class InventorySystemFXMLController implements Initializable {
      */
     public static Product chosenProduct = null;
     
-    private static ObservableList <Part> allParts = FXCollections.observableArrayList();
+    static ObservableList <Part> allParts = FXCollections.observableArrayList();
     private static ObservableList <Product> allProducts = FXCollections.observableArrayList();
     @FXML
     private TableColumn partIdCol;
@@ -126,6 +126,10 @@ public class InventorySystemFXMLController implements Initializable {
      */
     public static void addPart(Part newPart){
         allParts.add(newPart);
+    }
+    
+    public static void updatePart(int index, Part updatePart){
+        allParts.set(index, updatePart);
     }
     
     
