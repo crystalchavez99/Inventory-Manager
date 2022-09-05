@@ -4,6 +4,7 @@
  */
 
 import Classes.InHouse;
+import Classes.OutSourced;
 import Classes.Part;
 import Classes.Product;
 import java.io.IOException;
@@ -39,7 +40,7 @@ import javafx.stage.Stage;
  */
 public class InventorySystemFXMLController implements Initializable {
 
-    public static int partId = 4;
+    public static int partId = 5;
 
     @FXML
     private AnchorPane partInventory;
@@ -118,7 +119,7 @@ public class InventorySystemFXMLController implements Initializable {
         allParts.add(new InHouse(1, "Brakes",15.00,10,1,20,111));
         allParts.add(new InHouse(2, "Wheels",11.00,16,1,20,112));
         allParts.add(new InHouse(3, "Seat",15.00,10,1,20,113));
-        //allProducts.add(new OutSourced(1000, "Giant Bike",299.99,5,1,20,"Super Bikes"));
+        allParts.add(new OutSourced(4, "Giant Bike",299.99,5,1,20,"Super Bikes"));
         
     }  
     

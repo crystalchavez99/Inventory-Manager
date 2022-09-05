@@ -4,6 +4,7 @@
  */
 
 import Classes.InHouse;
+import Classes.OutSourced;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -68,6 +69,7 @@ public class AddPartInventoryFXMLController implements Initializable {
     private double partCost;
     private int partInv;
     private int partMachineId;
+    private String partCompanyName;
     @FXML
     private TextField differField;
     @FXML
@@ -175,6 +177,23 @@ public class AddPartInventoryFXMLController implements Initializable {
                 invalid.show();
                 return false;
             }
+        }else if(outSourceButton.isSelected()){
+            partCompanyName = differField.getText();
+            if(partCompanyName != ""){
+                System.out.println("valid!" + partCompanyName);
+            }else{
+                invalid.setContentText("Must be a valid string!");
+                invalid.show();
+                return false; 
+            }
+//            try{
+//                partCompanyName = differField.getText();
+//                System.out.println("valid!" + partCompanyName);
+//            }catch(Exception e){
+//               invalid.setContentText("Must be a valid string!");
+//                invalid.show();
+//                return false; 
+//            }
         }
         return true;  
     }
@@ -198,6 +217,7 @@ public class AddPartInventoryFXMLController implements Initializable {
     public void saveButton(ActionEvent actionEvent){
         System.out.println("Save button has been clicked");
         boolean inHousePart = inHouseButton.isSelected();
+        boolean outSourcedPart = outSourceButton.isSelected();
         System.out.println("inHousePart " + inHousePart);
         int id = InventorySystemFXMLController.partId;
         System.out.println("id " + id);
@@ -206,6 +226,8 @@ public class AddPartInventoryFXMLController implements Initializable {
             System.out.println("Passed valid");
             if(inHousePart){
                 InventorySystemFXMLController.addPart(new InHouse(id,partName,partCost,partInv,partMin,partMax,partMachineId));
+            }else if(outSourcedPart){
+                InventorySystemFXMLController.addPart(new OutSourced(id,partName,partCost,partInv,partMin,partMax,partCompanyName));
             }
             InventorySystemFXMLController.partId++;
             System.out.println(id);
