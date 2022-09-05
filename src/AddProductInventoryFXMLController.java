@@ -50,6 +50,8 @@ public class AddProductInventoryFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        int id = InventorySystemFXMLController.partId;
+        productIdFIeld.setText(Integer.toString(id));
     }    
     @FXML
     public void cancelButton(ActionEvent actionEvent){
