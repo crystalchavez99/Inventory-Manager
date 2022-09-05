@@ -157,6 +157,23 @@ public class InventorySystemFXMLController implements Initializable {
             Logger.getLogger(InventorySystemFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     @FXML
+    public void addProductButton(ActionEvent actionEvent){
+        try {
+        System.out.println("Add part button has been clicked");
+        FXMLLoader loadProductMenu = new FXMLLoader(getClass().getClassLoader().getResource("AddProductInventoryFXML.fxml"));
+       System.out.println(loadProductMenu);
+        Parent addP = loadProductMenu.load();
+        System.out.println(addP);
+        Scene addProductScene = new Scene(addP);
+        System.out.println(addProductScene);
+        Stage addProductStage = new Stage();
+        addProductStage.setScene(addProductScene);
+        addProductStage.show();
+        }catch (IOException ex) {
+            Logger.getLogger(InventorySystemFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     @FXML
     public void updatePartButton(ActionEvent actionEvent) throws IOException{

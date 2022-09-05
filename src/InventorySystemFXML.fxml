@@ -43,7 +43,7 @@
          <children>
             <ButtonBar fx:id="productButtonBar" layoutX="164.0" layoutY="244.0" prefHeight="40.0" prefWidth="200.0">
                <buttons>
-                  <Button fx:id="addProduct" mnemonicParsing="false" text="Add" />
+                  <Button fx:id="addProduct" mnemonicParsing="false" text="Add" onAction="#addProductButton"/>
                   <Button fx:id="editProduct" mnemonicParsing="false" text="Modify" />
                   <Button fx:id="deleteProduct" mnemonicParsing="false" text="Delete" />
                </buttons>
