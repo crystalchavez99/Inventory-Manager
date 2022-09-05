@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="402.0" prefWidth="802.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller=".AddProductInventoryFXMLController">
+   <children>
+      <Label fx:id="addProductLabel" layoutX="14.0" layoutY="14.0" text="Add Product">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="62.0" text="ID" />
+      <Label layoutX="34.0" layoutY="91.0" text="Name" />
+      <Label layoutX="36.0" layoutY="119.0" text="Inv" />
+      <Label layoutX="34.0" layoutY="149.0" text="Price" />
+      <Label layoutX="34.0" layoutY="183.0" text="Max" />
+      <TextField fx:id="productIdFIeld" layoutX="110.0" layoutY="58.0" />
+      <TextField fx:id="productNameField" layoutX="110.0" layoutY="87.0" />
+      <TextField fx:id="productInvField" layoutX="110.0" layoutY="115.0" />
+      <TextField fx:id="productPriceField" layoutX="110.0" layoutY="145.0" />
+      <TextField fx:id="productMaxField" layoutX="110.0" layoutY="179.0" />
+      <Label layoutX="300.0" layoutY="183.0" text="Min" />
+      <TextField layoutX="327.0" layoutY="179.0" />
+   </children>
+</AnchorPane>

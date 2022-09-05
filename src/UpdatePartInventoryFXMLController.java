@@ -71,6 +71,7 @@ public class UpdatePartInventoryFXMLController implements Initializable {
     private double partCost;
     private int partInv;
     private int partMachineId;
+    private String partCompanyName;
     private InHouse inHousePart = null;
     private OutSourced outSourcedPart = null;
     private int modIndex;
@@ -88,7 +89,7 @@ public class UpdatePartInventoryFXMLController implements Initializable {
         if(InventorySystemFXMLController.chosenPart.getClass() == InHouse.class){
             inHouseButton.setSelected(true);
             inHousePart = (InHouse) InventorySystemFXMLController.chosenPart;
-        }else{
+        }else if(InventorySystemFXMLController.chosenPart.getClass() == OutSourced.class){
             outSourceButton.setSelected(true);
             outSourcedPart = (OutSourced) InventorySystemFXMLController.chosenPart;
         }
@@ -183,6 +184,15 @@ public class UpdatePartInventoryFXMLController implements Initializable {
                 invalid.show();
                 return false;
             }
+        }else if (outSourceButton.isSelected()) {
+            partCompanyName = differField.getText();
+            if(partCompanyName != ""){
+                System.out.println("valid!" + partCompanyName);
+            }else{
+                invalid.setContentText("Must be a valid string!");
+                invalid.show();
+                return false; 
+            }
         }
         return true;  
     }
@@ -250,6 +260,7 @@ public class UpdatePartInventoryFXMLController implements Initializable {
             partMaxField.setText(String.valueOf(inHousePart.getMax()));
             partMinField.setText(String.valueOf(inHousePart.getMin()));
             differField.setText(String.valueOf(inHousePart.getMachineId()));
+            
         }else if(outSourcedPart != null){
             partIdField.setText(String.valueOf(outSourcedPart.getId()));
             partNameField.setText(String.valueOf(outSourcedPart.getName()));
@@ -259,5 +270,6 @@ public class UpdatePartInventoryFXMLController implements Initializable {
             partMinField.setText(String.valueOf(outSourcedPart.getMin()));
             differField.setText(String.valueOf(outSourcedPart.getCompanyName()));
         }
+        System.out.println(partMaxField.getText() + " "+ partMinField.getText());
     }
 }
