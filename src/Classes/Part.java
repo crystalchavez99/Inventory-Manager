@@ -7,8 +7,17 @@ package Classes;
 /**
  *
  * @author Crystal Chavez
+ * InHouse and OutSource are children of this parent class
  */
 public abstract class Part {
+    /**
+     @param id Part ID,
+     @param name Part Name,
+     @param price Part Price per part,
+     @param stock Part Inventory amount,
+     @param min Part min amount inventory,
+     @param max Part max amount inventory,
+     */
     private int id;
     private String name;
     private double price;

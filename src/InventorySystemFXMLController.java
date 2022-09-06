@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Redfi
+ * @author Crystal Chavez
  */
 public class InventorySystemFXMLController implements Initializable {
 
@@ -113,30 +113,164 @@ public class InventorySystemFXMLController implements Initializable {
         
         productIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productInvLeveColl.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         
         
         
         allParts.add(new InHouse(1, "Brakes",15.00,10,1,20,111));
         allParts.add(new InHouse(2, "Wheels",11.00,16,1,20,112));
         allParts.add(new InHouse(3, "Seat",15.00,10,1,20,113));
-        allParts.add(new OutSourced(4, "Giant Bike",299.99,5,1,20,"Super Bikes"));
+        //allParts.add(new OutSourced(4, "Giant Bike",299.99,5,1,20,"Super Bikes"));
         
+        allProducts.add(new Product(5,"Giant Bike",299.99,5,1,20));
+        allProducts.add(new Product(6,"Tricycle",99.99,3,1,20));
     }  
     
     /**
-     *
+     * 
      * @param newPart
+     allows us to add a new part to allParts
      */
     public static void addPart(Part newPart){
         allParts.add(newPart);
     }
     
+    /**
+     * 
+     * @param newProduct 
+     allows us to add a new product to allProducts
+     */
+    public static void addProduct(Product newProduct){
+        allProducts.add(newProduct);
+    }
+    
+    /**
+     * 
+     * @param partId
+     * @return searched up part
+     for the search field to lookup
+     */
+    public static Part lookPart(int partId){
+        ObservableList <Part> foundPart = allParts;
+        for (Part soughtPart : foundPart) {
+            if(soughtPart.getId() == partId){
+                return soughtPart;
+            }
+        }
+        Alert na = new Alert(Alert.AlertType.INFORMATION);
+        na.setContentText("Not available");
+        na.show();
+        return null;
+        
+    }
+    
+    /**
+     * 
+     * @param productId
+     * @return searched up product
+     */
+    public static Product lookProduct(int productId){
+        ObservableList <Product> foundProduct = allProducts;
+        for (Product soughtProduct : foundProduct) {
+            if(soughtProduct.getId() == partId){
+                return soughtProduct;
+            }
+        }
+        Alert na = new Alert(Alert.AlertType.INFORMATION);
+        na.setContentText("Not available");
+        na.show();
+        return null;
+    }
+    
+    public ObservableList<Part> lookupPart(String partName){
+        ObservableList<Part> searchPartName = FXCollections.observableArrayList();
+        for(Part part: allParts){
+                if(part.getName().toLowerCase().contains(partName.toLowerCase())){
+                    searchPartName.add(part);
+                }
+        }
+        if(searchPartName.size() >0){
+            return searchPartName;
+        }else{
+            Alert na = new Alert(Alert.AlertType.INFORMATION);
+            na.setContentText("Not available");
+            na.show();
+            return allParts;
+        }
+    }
+     public ObservableList<Product> lookupProduct(String productName){
+        ObservableList<Product> searchProductName = FXCollections.observableArrayList();
+        for(Product product: allProducts){
+                if(product.getName().toLowerCase().contains(productName.toLowerCase())){
+                    searchProductName.add(product);
+                }
+        }
+        if(searchProductName.size() >0){
+            return searchProductName;
+        }else{
+            Alert na = new Alert(Alert.AlertType.INFORMATION);
+            na.setContentText("Not available");
+            na.show();
+            return allProducts;
+        }
+    }
+    
+     public static ObservableList<Part> lookupPartId(Part partId){
+         if(partId != null){
+             ObservableList<Part> listPartId = FXCollections.observableArrayList();
+             for(Part part: allParts){
+                 if(part.equals(partId)){
+                     listPartId.add(part);
+                 }
+             }
+             if(listPartId.size() > 0){
+                 return listPartId;
+             }else{
+                 return allParts;
+             }
+         }else{
+             return allParts;
+         }
+     }
+     
+     public static ObservableList<Product> lookupProductId(Product productId){
+         if(productId != null){
+             ObservableList<Product> listProductId = FXCollections.observableArrayList();
+             for(Product product: allProducts){
+                 if(product.equals(productId)){
+                     listProductId.add(product);
+                 }
+             }
+             if(listProductId.size() > 0){
+                 return listProductId;
+             }else{
+                 return allProducts;
+             }
+         }else{
+             return allProducts;
+         }
+     }
+     
+    /**
+     * 
+     * @param index
+     * @param updatePart 
+     */
     public static void updatePart(int index, Part updatePart){
         allParts.set(index, updatePart);
     }
     
+    public static void updateProduct(int index, Product updateProduct){
+        allProducts.set(index, updateProduct);
+    }
+    
     public static boolean deletePart(Part removePart){
         return allParts.remove(removePart);
+    }
+    
+    public static boolean deleteProduct(Product removeProduct){
+        return allProducts.remove(removeProduct);
     }
     
     
@@ -230,6 +364,10 @@ public class InventorySystemFXMLController implements Initializable {
                 info.show();
                 chosenPart = null;
             }
+        }else{
+            Alert warning = new Alert(Alert.AlertType.WARNING);
+            warning.setContentText("Please select part!");
+            warning.show();
         }
     }
     

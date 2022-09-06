@@ -14,6 +14,10 @@ import javafx.collections.ObservableList;
  *
  * @author Crystal Chavez
  */
+/**
+ * 
+ * Product class used to represent data for Products and associatedParts
+ */
 public class Product {
     private ObservableList <Part> associatedParts = FXCollections.observableArrayList();
     private int id;
@@ -23,6 +27,14 @@ public class Product {
     private int min;
     private int max;    
     // Constructor for Product, super similar to Part Class!
+    /**
+     @param id Product ID,
+     @param name Product Name,
+     @param price Product Price per part,
+     @param stock Product Inventory amount,
+     @param min Product min amount inventory,
+     @param max Product max amount inventory,
+     */
     public Product(int id, String name, double price, int stock, int min, int max) {
         this.id = id;
         this.name = name;
@@ -116,14 +128,30 @@ public class Product {
         this.max = max;
     }
     
+    /**
+     * 
+     * @param part 
+     * add Parts to associatedParts
+     */
     public void addAssociatedPart(Part part){
         associatedParts.add(part);
     }
     
+    
+    /**
+     * Removes selectedAssociatedPart from associatedParts
+     * @param selectedAssociatedPart
+     * @return true if selectedAssociatedPart is removed
+     */
     public boolean deleteAssociatedPart(Part selectedAssociatedPart){
         return associatedParts.remove(selectedAssociatedPart);
     }
     
+    
+    /**
+     * Getter method for the associatedParts
+     * @return list
+     */
     public ObservableList <Part> getAllAssociatedParts(){
         return associatedParts;
     }

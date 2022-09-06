@@ -17,8 +17,11 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
- *
- * @author Crystal Chavez
+
+  @author Crystal Chavez
+  * I would definitely try to implement a more friendly user gui for the application
+  * Alongside that add dimensional fields for the parts/products
+
  */
 public class JavaFXMainClass extends Application {
     
@@ -39,6 +42,7 @@ public class JavaFXMainClass extends Application {
 
     /**
      * @param args the command line arguments
+     * Starts program
      */
     public static void main(String[] args) {
         launch(args);
