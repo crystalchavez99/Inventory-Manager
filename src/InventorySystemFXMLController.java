@@ -29,6 +29,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -371,6 +373,23 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+    public void seachParts(KeyEvent keyEvent){
+        if(keyEvent.getCode() == KeyCode.ENTER || searchPart.getText() == ""){
+            int partInteger = Integer.parseInt(searchPart.getText());
+            partTable.setItems(lookupPartId(lookPart(partInteger)));
+        }else{
+            partTable.setItems(lookupPart(searchPart.getText()));
+        }
+    }
+    
+    public void seachProducts(KeyEvent keyEvent){
+        if(keyEvent.getCode() == KeyCode.ENTER || searchProduct.getText() == ""){
+            int productInteger = Integer.parseInt(searchProduct.getText());
+            productTable.setItems(lookupProductId(lookProduct(productInteger)));
+        }else{
+            productTable.setItems(lookupProduct(searchProduct.getText()));
+        }
+    }
     
    
     

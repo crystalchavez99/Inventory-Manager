@@ -37,7 +37,7 @@
                   <TableColumn fx:id="partCostCol" prefWidth="118.0" text="Price/Cost per Unit" />
               </columns>
             </TableView>
-            <TextField fx:id="searchPart" layoutX="272.0" layoutY="10.0" promptText="Search by Part ID" />
+            <TextField fx:id="searchPart" layoutX="272.0" layoutY="10.0" promptText="Search by Part ID" onKeyPressed="#seachParts"/>
          </children></AnchorPane>
       <AnchorPane fx:id="productInventory" layoutX="512.0" layoutY="70.0" prefHeight="298.0" prefWidth="441.0" style="-fx-background-color: lightblue; -fx-border-color: black; -fx-border-radius: 10px;">
          <children>
@@ -61,7 +61,7 @@
                   <TableColumn fx:id="productCostCol" prefWidth="127.0" text="Price/Cost per Unit" />
                </columns>
             </TableView>
-            <TextField fx:id="searchProduct" layoutX="271.0" layoutY="9.0" promptText="Search by Product ID" />
+            <TextField fx:id="searchProduct" layoutX="271.0" layoutY="9.0" promptText="Search by Product ID" onKeyPressed="#seachProducts"/>
          </children>
       </AnchorPane>
       <Button fx:id="exitSystem" layoutX="918.0" layoutY="382.0" mnemonicParsing="false" onAction="#exitButton" text="Exit" />
