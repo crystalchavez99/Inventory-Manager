@@ -14,6 +14,11 @@ import Classes.Part;
  */
 public class OutSourced extends Part{
     /**
+     * differ variable to for company name when outsourced part
+     */
+    private String companyName;
+    
+    /**
      @param id Part ID,
      @param name Part Name,
      @param price Part Price per part,
@@ -22,8 +27,6 @@ public class OutSourced extends Part{
      @param max Part max amount inventory,
      @param companyName name of company
      */
-    private String companyName;
-    
     public OutSourced(int id, String name, double price, int stock, int min, int max, String companyName){
         super(id,name,price,stock,min,max);
         this.companyName = companyName;

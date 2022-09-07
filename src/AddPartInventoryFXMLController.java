@@ -179,6 +179,7 @@ public class AddPartInventoryFXMLController implements Initializable {
     
     /**
      *
+     @param actionEvent
      closes window when cancel is clicked
      */
     @FXML
@@ -190,6 +191,7 @@ public class AddPartInventoryFXMLController implements Initializable {
     
     /**
      *
+     @param actionEvent
      add part of allParts, id is incremented and window closed
      */
     @FXML
@@ -221,6 +223,7 @@ public class AddPartInventoryFXMLController implements Initializable {
     /**
      *
      * @param actionEvent
+     * allows user to switch part inhouse or outsourced
      */
     @FXML
     public void displayRadio(ActionEvent actionEvent){

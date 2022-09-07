@@ -42,17 +42,37 @@ import javafx.stage.Stage;
  * @author Crystal Chavez
  */
 public class InventorySystemFXMLController implements Initializable {
-
+    /**
+     * starting point of partId from the table
+     */
     public static int partId = 4;
     
+    /**
+     * starting point of productId from the table
+     */
     public static int productId = 3;
 
+    /**
+     * allows to have the window for part menu
+     */
     @FXML
     private AnchorPane partInventory;
+    
+    /**
+     * button bar to hold trio of buttons of add ,mod, delete
+     */
     @FXML
     private ButtonBar partButtonBar;
+    
+    /**
+     * allows to have the window for product menu
+     */
     @FXML
     private AnchorPane productInventory;
+    
+    /**
+     * button bar to hold trio of buttons of add ,mod, delete
+     */
     @FXML
     private ButtonBar productButtonBar;
     @FXML
@@ -78,6 +98,8 @@ public class InventorySystemFXMLController implements Initializable {
     @FXML
     private TextField searchProduct;
     
+     /** Temporary storage for a selected Part.
+     */
     public static Part chosenPart = null;
     /** Temporary storage for a selected Product.
      */
@@ -152,7 +174,7 @@ public class InventorySystemFXMLController implements Initializable {
     
     /**
      * 
-     * @param partId
+     * @param partId the part id
      * @return searched up part
      for the search field to lookup
      */
@@ -172,7 +194,7 @@ public class InventorySystemFXMLController implements Initializable {
     
     /**
      * 
-     * @param productId
+     * @param productId the product id
      * @return searched up product
      */
     public static Product lookupProduct(int productId){
@@ -188,6 +210,11 @@ public class InventorySystemFXMLController implements Initializable {
         return null;
     }
     
+    /**
+     * 
+     * @param partName the name of the part
+     * @return the part we are searching for in a list
+     */
     public static ObservableList<Part> lookupPart(String partName){
         ObservableList<Part> searchPartName = FXCollections.observableArrayList();
         for(Part part: allParts){
@@ -204,6 +231,12 @@ public class InventorySystemFXMLController implements Initializable {
             return allParts;
         }
     }
+    
+    /**
+     * 
+     * @param productName the name of the product
+     * @return the product we are searching for in a list
+     */
      public ObservableList<Product> lookupProduct(String productName){
         ObservableList<Product> searchProductName = FXCollections.observableArrayList();
         for(Product product: allProducts){
@@ -221,6 +254,11 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+     /**
+      * 
+      * @param partId id of the part
+      * @return the part we are searching for in a list
+      */
      public static ObservableList<Part> lookupPartId(Part partId){
          if(partId != null){
              ObservableList<Part> listPartId = FXCollections.observableArrayList();
@@ -239,6 +277,11 @@ public class InventorySystemFXMLController implements Initializable {
          }
      }
      
+     /**
+      * 
+      * @param productId id of the product
+      * @return the product we are searching for in a list
+      */
      public static ObservableList<Product> lookupProductId(Product productId){
          if(productId != null){
              ObservableList<Product> listProductId = FXCollections.observableArrayList();
@@ -259,33 +302,61 @@ public class InventorySystemFXMLController implements Initializable {
      
     /**
      * 
-     * @param index
-     * @param updatePart 
+     * @param index the index of part from table
+     * @param updatePart part we want to update to that value
      */
     public static void updatePart(int index, Part updatePart){
         allParts.set(index, updatePart);
     }
     
+    /**
+     * 
+     * @param index the index of product from table
+     * @param updateProduct product we want to update to that value
+     */
     public static void updateProduct(int index, Product updateProduct){
         allProducts.set(index, updateProduct);
     }
     
+    /**
+     * 
+     * @param removePart part that we want to remove
+     * @return true or false if removal is successful or not
+     */
     public static boolean deletePart(Part removePart){
         return allParts.remove(removePart);
     }
     
+    /**
+     * 
+     * @param removeProduct product that we want to remove
+     * @return true or false if removal is successful or not
+     */
     public static boolean deleteProduct(Product removeProduct){
         return allProducts.remove(removeProduct);
     }
     
-     public ObservableList getAllParts(){
+    /**
+     * 
+     * @return list of all parts
+     */
+     public static ObservableList getAllParts(){
         return allParts;
     }
     
+     /**
+     * 
+     * @return list of all products
+     */
     public ObservableList getAllProducts(){
         return allProducts;
     }
     
+    /**
+     * 
+     * @param object representing part or project
+     * @return increment value id of part or project
+     */
     public static int increaseId(int object){
         if(object == 0){
             return partId++;
@@ -294,22 +365,47 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+    /**
+     * 
+     * @param part the part
+     * @return the index of that part
+     */
     public static int getPartIndex(Part part){
         return allParts.indexOf(part);
     }
     
+    /**
+     * 
+     * @param product the product
+     * @return the index of that product
+     */
     public static int getProductIndex(Product product){
         return allProducts.indexOf(product);
     }
     
+    /**
+     * 
+     * @param index of the part
+     * @return the part from index of allParts
+     */
     public static Part getPart(int index){
         return allParts.get(index);
     }
     
+    /**
+     * 
+     * @param index of the product
+     * @return the product from the index of allProducts
+     */
     public static Product getProduct(int index){
         return allProducts.get(index);
     }
     
+    /**
+     * 
+     * @param integer from fields of form
+     * @return true or false if input is valid
+     */
     public static boolean intValid(String integer){
         if(integer == null){
             return false;
@@ -322,6 +418,11 @@ public class InventorySystemFXMLController implements Initializable {
         return true;
     }
     
+    /**
+     * 
+     * @param doub from fields of form
+     * @return true or false if input is valid
+     */
     public static boolean doubleValid(String doub){
         if(doub == null){
             return false;
@@ -334,6 +435,11 @@ public class InventorySystemFXMLController implements Initializable {
         return true;
     }
     
+    /**
+     * 
+     * @param string from fields of form
+     * @return true or false if input is valid
+     */
      public static boolean stringValid(String string){
         if(string == null || string == ""){
             return false;
@@ -349,6 +455,11 @@ public class InventorySystemFXMLController implements Initializable {
     
     
     
+    
+    /**
+     * @param actionEvent when user clicks on add
+     * when we click on add, it will open the new scene
+     */
     @FXML
     public void addPartButton(ActionEvent actionEvent){
         try {
@@ -366,24 +477,31 @@ public class InventorySystemFXMLController implements Initializable {
             Logger.getLogger(InventorySystemFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-     @FXML
-    public void addProductButton(ActionEvent actionEvent){
-        try {
-        //System.out.println("Add part button has been clicked");
+    
+    /**
+     * @param actionEvent when user clicks on add
+     * when we click on add, it will open the new  scene
+     * @throws java.io.IOException any issues
+     */
+    @FXML
+    public void addProductButton(ActionEvent actionEvent) throws IOException{
+        System.out.println("Add product button has been clicked");
         FXMLLoader loadProductMenu = new FXMLLoader(getClass().getClassLoader().getResource("AddProductInventoryFXML.fxml"));
-       //.out.println(loadProductMenu);
-        Parent addP = loadProductMenu.load();
-        //System.out.println(addP);
-        Scene addProductScene = new Scene(addP);
-        //System.out.println(addProductScene);
+       System.out.println(loadProductMenu);
+        Parent root = loadProductMenu.load();
+        System.out.println(root);
+        Scene addProductScene = new Scene(root);
+        System.out.println(addProductScene);
         Stage addProductStage = new Stage();
         addProductStage.setScene(addProductScene);
         addProductStage.show();
-        }catch (IOException ex) {
-            Logger.getLogger(InventorySystemFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
+    /**
+     * @param actionEvent when user clicks on modify
+     * @throws java.io.IOException
+     * when we click on modify, it will open the new scene
+     */
     @FXML
     public void updatePartButton(ActionEvent actionEvent) throws IOException{
         //System.out.println("Update part! " + chosenPart);
@@ -405,16 +523,18 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+    /**
+     * @param actionEvent
+     * when we click on modify, it will open the new scene
+     * @throws java.io.IOException when input output fails
+     */
+    @FXML
     public void updateProductButton(ActionEvent actionEvent) throws IOException{
         //System.out.println("Update part! " + chosenPart);
         if(chosenProduct != null){
-        //    System.out.println("Add part button has been clicked");
         FXMLLoader loadProductMenu = new FXMLLoader(getClass().getClassLoader().getResource("UpdateProductInventoryFXML.fxml"));
-     //  System.out.println(loadProductMenu);
         Parent updateP = loadProductMenu.load();
-     //   System.out.println(updateP);
         Scene updateProductScene = new Scene(updateP);
-    //    System.out.println(updatePartScene);
         Stage updateProductStage = new Stage();
         updateProductStage.setScene(updateProductScene);
         updateProductStage.show();
@@ -427,13 +547,18 @@ public class InventorySystemFXMLController implements Initializable {
     
     
     
-    
+    /**
+     * setting our selectPart
+     */
     public void selectedPart(){
         chosenProduct = null;
         chosenPart = getPart(getPartIndex((Part) partTable.getSelectionModel().getSelectedItem()));
         System.out.println("Chosen Part!" + chosenPart.getMax());
     }
     
+    /**
+     * setting our selectProduct
+     */
     public void selectedProduct(){
         chosenProduct = getProduct(getProductIndex((Product) productTable.getSelectionModel().getSelectedItem()));
         chosenPart = null;
@@ -442,6 +567,10 @@ public class InventorySystemFXMLController implements Initializable {
     
     
     
+   /**
+    * 
+    * @param mouseEvent when we click on table
+    */
     @FXML
     public void partTableClick(MouseEvent mouseEvent){
         
@@ -451,6 +580,11 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+    /**
+     * 
+     * @param mouseEvent when we click on table
+     */
+    @FXML
     public void productTableClick(MouseEvent mouseEvent){
         System.out.println("Enter prod table");
         if(!productTable.getSelectionModel().isEmpty()){
@@ -459,6 +593,11 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+    /**
+     * 
+     * @param actionEvent when we click on delete button
+     * @throws IOException when input/output fails
+     */
     @FXML
     public void deletePartButton(ActionEvent actionEvent) throws IOException{
         //System.out.println("Delete has been clicked!");
@@ -487,6 +626,12 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+    /**
+     * 
+     * @param actionEvent when we click on delete button
+     * @throws IOException when input/output fails
+     */
+    @FXML
      public void deleteProductButton(ActionEvent actionEvent) throws IOException{
         //System.out.println("Delete has been clicked!");
         if(chosenProduct != null){
@@ -514,6 +659,10 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+    /**
+     * 
+     * @param keyEvent when we type into field
+     */
     @FXML
     public void seachParts(KeyEvent keyEvent){
         if(keyEvent.getCode() == KeyCode.ENTER || searchPart.getText() == ""){
@@ -524,6 +673,10 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+    /**
+     * 
+     * @param keyEvent when we type into field
+     */
     @FXML
     public void seachProducts(KeyEvent keyEvent){
         if(keyEvent.getCode() == KeyCode.ENTER || searchProduct.getText() == ""){
@@ -536,6 +689,10 @@ public class InventorySystemFXMLController implements Initializable {
     
    
     
+    /**
+     * 
+     * @param actionEvent when we click on exit button
+     */
     @FXML
     public void exitButton(ActionEvent actionEvent){
          System.out.println("Exit button has been clicked");

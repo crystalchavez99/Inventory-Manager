@@ -140,7 +140,7 @@ public class Product {
     
     /**
      * Removes selectedAssociatedPart from associatedParts
-     * @param selectedAssociatedPart
+     * @param selectedAssociatedPart the Associated part
      * @return true if selectedAssociatedPart is removed
      */
     public boolean deleteAssociatedPart(Part selectedAssociatedPart){

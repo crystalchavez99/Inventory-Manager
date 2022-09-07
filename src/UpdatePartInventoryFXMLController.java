@@ -97,7 +97,10 @@ public class UpdatePartInventoryFXMLController implements Initializable {
     }    
     
     
-    
+    /**
+     * 
+     * @return true or false if inputs are valid
+     */
     public boolean validation(){
         System.out.print("Entered valid method!");
         Alert invalid = new Alert(Alert.AlertType.WARNING);
@@ -174,7 +177,7 @@ public class UpdatePartInventoryFXMLController implements Initializable {
     }
     /**
      *
-     * @param actionEvent
+     * @param actionEvent when we click on cancel button
      */
     @FXML
     public void cancelButton(ActionEvent actionEvent){
@@ -187,7 +190,7 @@ public class UpdatePartInventoryFXMLController implements Initializable {
     
     /**
      *
-     * @param actionEvent
+     * @param actionEvent when we click on save button
      */
     @FXML
     public void saveButton(ActionEvent actionEvent){
@@ -214,9 +217,9 @@ public class UpdatePartInventoryFXMLController implements Initializable {
         }
         
     }
+    
     /**
-     *
-     * @param actionEvent
+     * determine what label is when we click on either radio
      */
     @FXML
     public void displayRadio(){
@@ -227,6 +230,9 @@ public class UpdatePartInventoryFXMLController implements Initializable {
         }
     }
     
+    /**
+     * retrieves info when you modify
+     */
     public void modPartInfo(){
         if(inHousePart != null){
             partIdField.setText(String.valueOf(inHousePart.getId()));

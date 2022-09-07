@@ -71,30 +71,48 @@ public class AddProductInventoryFXMLController implements Initializable {
     private AnchorPane addIdLabel;
     @FXML
     private TextField productSearchField;
-    @FXML
+    
+    /**
+     * product table
+     */
     public  TableView productTable;
-    @FXML
-    public TableView productAscTable;
+    /**
+     * product associated table
+     */
+    public TableView<Part> productAscTable;
+    /**
+     * button to delete
+     *
+     */
     @FXML
     private Button deleteProductButton;
+    /**
+     * button to add
+     */
     @FXML
     private Button addProductButton;
+    /**
+     * table column for id
+     */
     @FXML
-    private TableColumn<?, ?> partIdCol;
+    private TableColumn partIdCol;
+    /**
+     *  table column for name
+     */
     @FXML
-    private TableColumn<?, ?> partNameCol;
+    private TableColumn partNameCol;
     @FXML
-    private TableColumn<?, ?> partInvCol;
+    private TableColumn partInvCol;
     @FXML
-    private TableColumn<?, ?> partCostCol;
+    private TableColumn partCostCol;
     @FXML
-    private TableColumn<?, ?> apartIdCol;
+    private TableColumn apartIdCol;
     @FXML
-    private TableColumn<?, ?> apartNameCol;
+    private TableColumn apartNameCol;
     @FXML
-    private TableColumn<?, ?> apartInvCol;
+    private TableColumn apartInvCol;
     @FXML
-    private TableColumn<?, ?> apartCostCol;
+    private TableColumn apartCostCol;
     private Product temp;
     private Part chosenPart = null;
     private Part chosenAscPart = null;
@@ -104,11 +122,12 @@ public class AddProductInventoryFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        //int id = InventorySystemFXMLController.partId;
-        //productIdFIeld.setText(Integer.toString(id));
+        int id = InventorySystemFXMLController.partId;
+        productIdFIeld.setText(Integer.toString(id));
         temp = new Product(0,"",0.0,0,0,0);
-        productTable.setItems(InventorySystemFXMLController.allParts);
+        productTable.setItems(InventorySystemFXMLController.getAllParts());
         productAscTable.setItems(temp.getAllAssociatedParts());
+        
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
@@ -121,17 +140,28 @@ public class AddProductInventoryFXMLController implements Initializable {
         
     }    
     
+    /**
+     * represents current part we have clicked each time
+     */
     public void selectedPart(){
         if(productTable != null){
             chosenPart = (Part) productTable.getSelectionModel().getSelectedItem();
         }
     }
+    
+    /**
+     * represents current part we have clicked each time
+     */
     public void selectedAscPart(){
         if(productAscTable != null){
             chosenAscPart = (Part) productAscTable.getSelectionModel().getSelectedItem();
         }
     }
     
+    /**
+     * Checks whether the input of each field is valid
+     * @return true or false
+     */
     public boolean validation(){
         Alert invalid = new Alert(Alert.AlertType.WARNING);
         if(InventorySystemFXMLController.stringValid(productNameField.getText())){
@@ -181,7 +211,12 @@ public class AddProductInventoryFXMLController implements Initializable {
         }
         return true;
     }
-    
+    /**
+     * 
+     * @param actionEvent 
+     * add product to associated part
+     */
+    @FXML
     public void addAscPartButton(ActionEvent actionEvent){
         if(chosenPart != null){
             temp.addAssociatedPart(chosenPart);
@@ -192,12 +227,23 @@ public class AddProductInventoryFXMLController implements Initializable {
             warning.show();
         }
     }
+    /**
+     * @param actionEvent 
+     * closes the window without making changes
+     */
     @FXML
     public void cancelButton(ActionEvent actionEvent){
         System.out.println("Cancel button has been clicked");
         Stage addProductStage = (Stage) cancelButton.getScene().getWindow();
         addProductStage.close();
     }
+    
+    /**
+     * 
+     * @param actionEvent 
+     * removes associated part clicked on
+     */
+    @FXML
     public void removeAscButton(ActionEvent actionEvent){
     if(chosenAscPart!=null){
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
@@ -219,6 +265,12 @@ public class AddProductInventoryFXMLController implements Initializable {
     }
     }
     
+    /**
+     * 
+     * @param actionEvent 
+     * the input we filled to create a product is then saved
+     */
+    @FXML
     public void saveProductButton(ActionEvent actionEvent){
         if(validation()){
             temp.setId(InventorySystemFXMLController.productId);
@@ -234,6 +286,12 @@ public class AddProductInventoryFXMLController implements Initializable {
         }
     }
     
+    
+    /**
+     * 
+     * @param keyEvent 
+     * allows for text field to be a search bar
+     */
     public void searchParts(KeyEvent keyEvent){
         if(keyEvent.getCode() == KeyCode.ENTER || productSearchField.getText() == ""){
             int partInteger = Integer.parseInt(productSearchField.getText());
@@ -243,9 +301,22 @@ public class AddProductInventoryFXMLController implements Initializable {
         }
     }
     
+    /**
+     * 
+     * @param mouseEvent 
+     * allows to click on table 
+     */
+    @FXML
     public void onProductTableClick(MouseEvent mouseEvent){
         selectedPart();
     }
+    
+    /**
+     * 
+     * @param mouseEvent 
+     * allows to click on table 
+     */
+    @FXML
     public void onProductAscTableClick(MouseEvent mouseEvent){
         selectedAscPart();
     }

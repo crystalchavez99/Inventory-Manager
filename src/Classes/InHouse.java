@@ -13,6 +13,9 @@ import Classes.Part;
  * @author Crystal Chavez
  */
 public class InHouse extends Part{
+    // differ element of inhouse which would be machineId
+     private int machineId;
+     
     /**
      @param id Part ID,
      @param name Part Name,
@@ -22,8 +25,6 @@ public class InHouse extends Part{
      @param max Part max amount inventory,
      @param machineId id of machine
      */
-    private int machineId;
-    
     public InHouse(int id, String name, double price, int stock, int min, int max,int machineId){
         super(id,name,price,stock,min,max);
         this.machineId = machineId;
