@@ -42,7 +42,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="partIdField" editable="false" layoutX="176.0" layoutY="63.0" text="Auto" />
+      <TextField fx:id="partIdField" editable="false" layoutX="176.0" layoutY="63.0" text="Auto"/>
       <TextField fx:id="partNameField" layoutX="176.0" layoutY="98.0" />
       <TextField fx:id="partInvField" layoutX="176.0" layoutY="132.0" />
       <TextField fx:id="partCostField" layoutX="176.0" layoutY="171.0" />

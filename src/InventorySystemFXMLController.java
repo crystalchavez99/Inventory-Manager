@@ -8,6 +8,7 @@ import Classes.OutSourced;
 import Classes.Part;
 import Classes.Product;
 import java.io.IOException;
+import static java.lang.Character.isAlphabetic;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -42,7 +43,9 @@ import javafx.stage.Stage;
  */
 public class InventorySystemFXMLController implements Initializable {
 
-    public static int partId = 5;
+    public static int partId = 4;
+    
+    public static int productId = 3;
 
     @FXML
     private AnchorPane partInventory;
@@ -125,8 +128,8 @@ public class InventorySystemFXMLController implements Initializable {
         allParts.add(new InHouse(3, "Seat",15.00,10,1,20,113));
         //allParts.add(new OutSourced(4, "Giant Bike",299.99,5,1,20,"Super Bikes"));
         
-        allProducts.add(new Product(5,"Giant Bike",299.99,5,1,20));
-        allProducts.add(new Product(6,"Tricycle",99.99,3,1,20));
+        allProducts.add(new Product(1,"Giant Bike",299.99,5,1,20));
+        allProducts.add(new Product(2,"Tricycle",99.99,3,1,20));
     }  
     
     /**
@@ -153,7 +156,7 @@ public class InventorySystemFXMLController implements Initializable {
      * @return searched up part
      for the search field to lookup
      */
-    public static Part lookPart(int partId){
+    public static Part lookupPart(int partId){
         ObservableList <Part> foundPart = allParts;
         for (Part soughtPart : foundPart) {
             if(soughtPart.getId() == partId){
@@ -172,7 +175,7 @@ public class InventorySystemFXMLController implements Initializable {
      * @param productId
      * @return searched up product
      */
-    public static Product lookProduct(int productId){
+    public static Product lookupProduct(int productId){
         ObservableList <Product> foundProduct = allProducts;
         for (Product soughtProduct : foundProduct) {
             if(soughtProduct.getId() == partId){
@@ -185,7 +188,7 @@ public class InventorySystemFXMLController implements Initializable {
         return null;
     }
     
-    public ObservableList<Part> lookupPart(String partName){
+    public static ObservableList<Part> lookupPart(String partName){
         ObservableList<Part> searchPartName = FXCollections.observableArrayList();
         for(Part part: allParts){
                 if(part.getName().toLowerCase().contains(partName.toLowerCase())){
@@ -275,17 +278,87 @@ public class InventorySystemFXMLController implements Initializable {
         return allProducts.remove(removeProduct);
     }
     
+     public ObservableList getAllParts(){
+        return allParts;
+    }
+    
+    public ObservableList getAllProducts(){
+        return allProducts;
+    }
+    
+    public static int increaseId(int object){
+        if(object == 0){
+            return partId++;
+        }else{
+            return productId++;
+        }
+    }
+    
+    public static int getPartIndex(Part part){
+        return allParts.indexOf(part);
+    }
+    
+    public static int getProductIndex(Product product){
+        return allProducts.indexOf(product);
+    }
+    
+    public static Part getPart(int index){
+        return allParts.get(index);
+    }
+    
+    public static Product getProduct(int index){
+        return allProducts.get(index);
+    }
+    
+    public static boolean intValid(String integer){
+        if(integer == null){
+            return false;
+        }
+        try{
+            Integer.parseInt(integer);
+        }catch(NumberFormatException NFE){
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean doubleValid(String doub){
+        if(doub == null){
+            return false;
+        }
+        try{
+            Double.parseDouble(doub);
+        }catch(NumberFormatException NFE){
+            return false;
+        }
+        return true;
+    }
+    
+     public static boolean stringValid(String string){
+        if(string == null || string == ""){
+            return false;
+        }
+        if(isAlphabetic(string.charAt(0))){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+
+    
+    
     
     @FXML
     public void addPartButton(ActionEvent actionEvent){
         try {
-        System.out.println("Add part button has been clicked");
+        //System.out.println("Add part button has been clicked");
         FXMLLoader loadPartMenu = new FXMLLoader(getClass().getClassLoader().getResource("AddPartInventoryFXML.fxml"));
-       System.out.println(loadPartMenu);
+       //System.out.println(loadPartMenu);
         Parent addP = loadPartMenu.load();
-        System.out.println(addP);
+       // System.out.println(addP);
         Scene addPartScene = new Scene(addP);
-        System.out.println(addPartScene);
+       // System.out.println(addPartScene);
         Stage addPartStage = new Stage();
         addPartStage.setScene(addPartScene);
         addPartStage.show();
@@ -296,13 +369,13 @@ public class InventorySystemFXMLController implements Initializable {
      @FXML
     public void addProductButton(ActionEvent actionEvent){
         try {
-        System.out.println("Add part button has been clicked");
+        //System.out.println("Add part button has been clicked");
         FXMLLoader loadProductMenu = new FXMLLoader(getClass().getClassLoader().getResource("AddProductInventoryFXML.fxml"));
-       System.out.println(loadProductMenu);
+       //.out.println(loadProductMenu);
         Parent addP = loadProductMenu.load();
-        System.out.println(addP);
+        //System.out.println(addP);
         Scene addProductScene = new Scene(addP);
-        System.out.println(addProductScene);
+        //System.out.println(addProductScene);
         Stage addProductStage = new Stage();
         addProductStage.setScene(addProductScene);
         addProductStage.show();
@@ -313,15 +386,15 @@ public class InventorySystemFXMLController implements Initializable {
     
     @FXML
     public void updatePartButton(ActionEvent actionEvent) throws IOException{
-        System.out.println("Update part! " + chosenPart);
+        //System.out.println("Update part! " + chosenPart);
         if(chosenPart != null){
-            System.out.println("Add part button has been clicked");
+        //    System.out.println("Add part button has been clicked");
         FXMLLoader loadPartMenu = new FXMLLoader(getClass().getClassLoader().getResource("UpdatePartInventoryFXML.fxml"));
-       System.out.println(loadPartMenu);
+     //  System.out.println(loadPartMenu);
         Parent updateP = loadPartMenu.load();
-        System.out.println(updateP);
+     //   System.out.println(updateP);
         Scene updatePartScene = new Scene(updateP);
-        System.out.println(updatePartScene);
+    //    System.out.println(updatePartScene);
         Stage updatePartStage = new Stage();
         updatePartStage.setScene(updatePartScene);
         updatePartStage.show();
@@ -332,12 +405,44 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
-    public void selectedPart(){
-        chosenProduct = null;
-        chosenPart = allParts.get(allParts.indexOf(partTable.getSelectionModel().getSelectedItem()));
-        System.out.println("Chosen Part!" + chosenPart);
+    public void updateProductButton(ActionEvent actionEvent) throws IOException{
+        //System.out.println("Update part! " + chosenPart);
+        if(chosenProduct != null){
+        //    System.out.println("Add part button has been clicked");
+        FXMLLoader loadProductMenu = new FXMLLoader(getClass().getClassLoader().getResource("UpdateProductInventoryFXML.fxml"));
+     //  System.out.println(loadProductMenu);
+        Parent updateP = loadProductMenu.load();
+     //   System.out.println(updateP);
+        Scene updateProductScene = new Scene(updateP);
+    //    System.out.println(updatePartScene);
+        Stage updateProductStage = new Stage();
+        updateProductStage.setScene(updateProductScene);
+        updateProductStage.show();
+        }else{
+            Alert warning = new Alert(Alert.AlertType.WARNING);
+            warning.setContentText("Please select part!");
+            warning.show();
+        }
     }
     
+    
+    
+    
+    public void selectedPart(){
+        chosenProduct = null;
+        chosenPart = getPart(getPartIndex((Part) partTable.getSelectionModel().getSelectedItem()));
+        System.out.println("Chosen Part!" + chosenPart.getMax());
+    }
+    
+    public void selectedProduct(){
+        chosenProduct = getProduct(getProductIndex((Product) productTable.getSelectionModel().getSelectedItem()));
+        chosenPart = null;
+        System.out.println("Chosen Product!" + chosenProduct);
+    }
+    
+    
+    
+    @FXML
     public void partTableClick(MouseEvent mouseEvent){
         
         if(!partTable.getSelectionModel().isEmpty()){
@@ -346,8 +451,17 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+    public void productTableClick(MouseEvent mouseEvent){
+        System.out.println("Enter prod table");
+        if(!productTable.getSelectionModel().isEmpty()){
+            System.out.println("Clicked!");
+            selectedProduct();
+        }
+    }
+    
+    @FXML
     public void deletePartButton(ActionEvent actionEvent) throws IOException{
-        System.out.println("Delete has been clicked!");
+        //System.out.println("Delete has been clicked!");
         if(chosenPart != null){
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
             confirm.setContentText("Please confirm deletion!");
@@ -373,19 +487,48 @@ public class InventorySystemFXMLController implements Initializable {
         }
     }
     
+     public void deleteProductButton(ActionEvent actionEvent) throws IOException{
+        //System.out.println("Delete has been clicked!");
+        if(chosenProduct != null){
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setContentText("Please confirm deletion!");
+            Optional<ButtonType> decide = confirm.showAndWait();
+            if(!decide.isPresent()){
+                Alert info = new Alert(Alert.AlertType.INFORMATION);
+                info.setContentText(chosenPart.getName() + " not deleted yet!");
+                info.show();
+                chosenPart = null;
+            }else if(decide.get() == ButtonType.OK){
+                deleteProduct(chosenProduct);
+                chosenProduct = null;
+            }else if(decide.get() == ButtonType.CANCEL){
+                Alert info = new Alert(Alert.AlertType.INFORMATION);
+                info.setContentText(chosenProduct.getName() + " not deleted yet!");
+                info.show();
+                chosenProduct = null;
+            }
+        }else{
+            Alert warning = new Alert(Alert.AlertType.WARNING);
+            warning.setContentText("Please select part!");
+            warning.show();
+        }
+    }
+    
+    @FXML
     public void seachParts(KeyEvent keyEvent){
         if(keyEvent.getCode() == KeyCode.ENTER || searchPart.getText() == ""){
             int partInteger = Integer.parseInt(searchPart.getText());
-            partTable.setItems(lookupPartId(lookPart(partInteger)));
+            partTable.setItems(lookupPartId(lookupPart(partInteger)));
         }else{
             partTable.setItems(lookupPart(searchPart.getText()));
         }
     }
     
+    @FXML
     public void seachProducts(KeyEvent keyEvent){
         if(keyEvent.getCode() == KeyCode.ENTER || searchProduct.getText() == ""){
             int productInteger = Integer.parseInt(searchProduct.getText());
-            productTable.setItems(lookupProductId(lookProduct(productInteger)));
+            productTable.setItems(lookupProductId(lookupProduct(productInteger)));
         }else{
             productTable.setItems(lookupProduct(searchProduct.getText()));
         }

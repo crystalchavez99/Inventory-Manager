@@ -75,9 +75,8 @@ public class AddPartInventoryFXMLController implements Initializable {
     @FXML
     private Label differLabel;
     /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
+     Initializes the controller class.
+     set up for fxml controller
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -91,66 +90,46 @@ public class AddPartInventoryFXMLController implements Initializable {
         }
         int id = InventorySystemFXMLController.partId;
         partIdField.setText(Integer.toString(id));
+        partIdField.setEditable(false);
     }    
     
     /**
      *
-     * @return
+     * @return true or false if input for each field is valid input
      */
     public boolean validation(){
-        System.out.print("Entered valid method!");
         Alert invalid = new Alert(Alert.AlertType.WARNING);
-        System.out.println(partNameField.getText());
-        if(partNameField.getText() == ""){
-            System.out.println("Entered invalid name method!");
+        if(InventorySystemFXMLController.stringValid(partNameField.getText())){
+            partName = partNameField.getText();
+        }else{
             invalid.setContentText("Name must start with a letter!");
             invalid.show();
             return false;
         }
-        if(isAlphabetic(partNameField.getText().charAt(0))){
-            partName = partNameField.getText();
-            System.out.println("valid!" + partName);
-        }
-        
-        if(partCostField.getText() == null){
-            return false;
-        }
-        try{
-        partCost = Double.parseDouble(partCostField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.doubleValid(partCostField.getText())){
+            partCost = Double.parseDouble(partCostField.getText());
+        }else{
             invalid.setContentText("Must be a valid decimal number!");
             invalid.show();
             return false;
         }
-        
-        if(partInvField.getText() == null){
-            return false;
-        }
-        try{
-        partInv = Integer.parseInt(partInvField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.intValid(partInvField.getText())){
+            partInv = Integer.parseInt(partInvField.getText());
+        }else{
             invalid.setContentText("Must be a valid integer number!");
             invalid.show();
             return false;
         }
-        
-        if(partMinField.getText() == null){
-            return false;
-        }
-        try{
-        partMin = Integer.parseInt(partMinField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.intValid(partMaxField.getText())){
+            partMax = Integer.parseInt(partMaxField.getText());
+        }else{
             invalid.setContentText("Must be a valid integer number!");
             invalid.show();
             return false;
         }
-        
-        if(partMaxField.getText() == null){
-            return false;
-        }
-        try{
-        partMax = Integer.parseInt(partMaxField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.intValid(partMinField.getText())){
+            partMin = Integer.parseInt(partMinField.getText());
+        }else{
             invalid.setContentText("Must be a valid integer number!");
             invalid.show();
             return false;
@@ -200,7 +179,7 @@ public class AddPartInventoryFXMLController implements Initializable {
     
     /**
      *
-     * @param actionEvent
+     closes window when cancel is clicked
      */
     @FXML
     public void cancelButton(ActionEvent actionEvent){
@@ -211,7 +190,7 @@ public class AddPartInventoryFXMLController implements Initializable {
     
     /**
      *
-     * @param actionEvent
+     add part of allParts, id is incremented and window closed
      */
     @FXML
     public void saveButton(ActionEvent actionEvent){
@@ -229,7 +208,7 @@ public class AddPartInventoryFXMLController implements Initializable {
             }else if(outSourcedPart){
                 InventorySystemFXMLController.addPart(new OutSourced(id,partName,partCost,partInv,partMin,partMax,partCompanyName));
             }
-            InventorySystemFXMLController.partId++;
+            InventorySystemFXMLController.increaseId(0);
             System.out.println(id);
             Stage addPartStage = (Stage) partCancelButton.getScene().getWindow();
             addPartStage.close();

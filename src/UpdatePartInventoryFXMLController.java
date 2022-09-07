@@ -81,8 +81,6 @@ public class UpdatePartInventoryFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        System.out.println("Init! " +InventorySystemFXMLController.chosenPart.getClass());
-        System.out.println(InHouse.class);
         ToggleGroup group = new ToggleGroup();
         inHouseButton.setToggleGroup(group);
         outSourceButton.setToggleGroup(group);
@@ -103,61 +101,39 @@ public class UpdatePartInventoryFXMLController implements Initializable {
     public boolean validation(){
         System.out.print("Entered valid method!");
         Alert invalid = new Alert(Alert.AlertType.WARNING);
-        System.out.println(partNameField.getText());
-        if(partNameField.getText() == ""){
-            System.out.println("Entered invalid name method!");
-            invalid.setContentText("Must start with a letter!");
-            invalid.show();
-            return false;
-        }
-        if(isAlphabetic(partNameField.getText().charAt(0))){
+        if(InventorySystemFXMLController.stringValid(partNameField.getText())){
             partName = partNameField.getText();
-            System.out.println("valid!" + partName);
         }else{
-            invalid.setContentText("Must start with a letter!");
+            invalid.setContentText("Name must start with a letter!");
             invalid.show();
             return false;
         }
-        
-        if(partCostField.getText() == null){
-            return false;
-        }
-        try{
-        partCost = Double.parseDouble(partCostField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.doubleValid(partCostField.getText())){
+            partCost = Double.parseDouble(partCostField.getText());
+        }else{
             invalid.setContentText("Must be a valid decimal number!");
             invalid.show();
             return false;
         }
-        
-        if(partInvField.getText() == null){
-            return false;
-        }
-        try{
-        partInv = Integer.parseInt(partInvField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.intValid(partInvField.getText())){
+            partInv = Integer.parseInt(partInvField.getText());
+        }else{
             invalid.setContentText("Must be a valid integer number!");
             invalid.show();
             return false;
         }
-        
-        if(partMinField.getText() == null){
-            return false;
-        }
-        try{
-        partMin = Integer.parseInt(partMinField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.intValid(partMaxField.getText())){
+            partMax = Integer.parseInt(partMaxField.getText());
+            System.out.println("Max is" + partMax);
+        }else{
             invalid.setContentText("Must be a valid integer number!");
             invalid.show();
             return false;
         }
-        
-        if(partMaxField.getText() == null){
-            return false;
-        }
-        try{
-        partMax = Integer.parseInt(partMaxField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.intValid(partMinField.getText())){
+            partMin = Integer.parseInt(partMinField.getText());
+            System.out.println("Min is" + partMin);
+        }else{
             invalid.setContentText("Must be a valid integer number!");
             invalid.show();
             return false;
@@ -216,7 +192,7 @@ public class UpdatePartInventoryFXMLController implements Initializable {
     @FXML
     public void saveButton(ActionEvent actionEvent){
         if(validation()){
-            modIndex = InventorySystemFXMLController.allParts.indexOf(InventorySystemFXMLController.chosenPart);
+            modIndex = InventorySystemFXMLController.getPartIndex(InventorySystemFXMLController.chosenPart);
             int modPartId = Integer.parseInt(partIdField.getText());
             String modPartName = partNameField.getText();
             double modPartCost = Double.parseDouble(partCostField.getText());

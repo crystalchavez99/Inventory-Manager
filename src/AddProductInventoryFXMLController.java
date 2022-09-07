@@ -3,16 +3,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
-import static java.lang.Character.isAlphabetic;
+import Classes.Part;
+import Classes.Product;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -24,11 +34,17 @@ public class AddProductInventoryFXMLController implements Initializable {
 
     @FXML
     private Label addProductLabel;
+    @FXML
     private Label productIdLabel;
+    @FXML
     private Label productNameLabel;
+    @FXML
     private Label productInvLabel;
+    @FXML
     private Label productCostLabel;
+    @FXML
     private Label productMaxLabel;
+    @FXML
     private Label productMinLabel;
     @FXML
     private TextField productIdFIeld;
@@ -40,6 +56,7 @@ public class AddProductInventoryFXMLController implements Initializable {
     private TextField productPriceField;
     @FXML
     private TextField productMaxField;
+    @FXML
     private TextField productMinField;
     @FXML
     private Button saveButton;
@@ -50,87 +67,130 @@ public class AddProductInventoryFXMLController implements Initializable {
     private int productMax;
     private double productCost;
     private int productInv;
+    @FXML
+    private AnchorPane addIdLabel;
+    @FXML
+    private TextField productSearchField;
+    @FXML
+    public  TableView productTable;
+    @FXML
+    public TableView productAscTable;
+    @FXML
+    private Button deleteProductButton;
+    @FXML
+    private Button addProductButton;
+    @FXML
+    private TableColumn<?, ?> partIdCol;
+    @FXML
+    private TableColumn<?, ?> partNameCol;
+    @FXML
+    private TableColumn<?, ?> partInvCol;
+    @FXML
+    private TableColumn<?, ?> partCostCol;
+    @FXML
+    private TableColumn<?, ?> apartIdCol;
+    @FXML
+    private TableColumn<?, ?> apartNameCol;
+    @FXML
+    private TableColumn<?, ?> apartInvCol;
+    @FXML
+    private TableColumn<?, ?> apartCostCol;
+    private Product temp;
+    private Part chosenPart = null;
+    private Part chosenAscPart = null;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        int id = InventorySystemFXMLController.partId;
-        productIdFIeld.setText(Integer.toString(id));
+        //int id = InventorySystemFXMLController.partId;
+        //productIdFIeld.setText(Integer.toString(id));
+        temp = new Product(0,"",0.0,0,0,0);
+        productTable.setItems(InventorySystemFXMLController.allParts);
+        productAscTable.setItems(temp.getAllAssociatedParts());
+        partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        apartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        apartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        apartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        apartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
     }    
     
+    public void selectedPart(){
+        if(productTable != null){
+            chosenPart = (Part) productTable.getSelectionModel().getSelectedItem();
+        }
+    }
+    public void selectedAscPart(){
+        if(productAscTable != null){
+            chosenAscPart = (Part) productAscTable.getSelectionModel().getSelectedItem();
+        }
+    }
+    
     public boolean validation(){
-        System.out.print("Entered valid method!");
         Alert invalid = new Alert(Alert.AlertType.WARNING);
-        System.out.println(productNameField.getText());
-        if(productNameField.getText() == ""){
-            System.out.println("Entered invalid name method!");
+        if(InventorySystemFXMLController.stringValid(productNameField.getText())){
+            productName = productNameField.getText();
+        }else{
             invalid.setContentText("Name must start with a letter!");
             invalid.show();
             return false;
         }
-        if(isAlphabetic(productNameField.getText().charAt(0))){
-            productName = productNameField.getText();
-            System.out.println("valid!" + productName);
-        }
-        
-        if(productPriceField.getText() == null){
-            return false;
-        }
-        try{
-        productCost = Double.parseDouble(productPriceField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.doubleValid(productPriceField.getText())){
+            productCost = Double.parseDouble(productPriceField.getText());
+        }else{
             invalid.setContentText("Must be a valid decimal number!");
             invalid.show();
             return false;
         }
-        
-        if(productInvField.getText() == null){
-            return false;
-        }
-        try{
-        productInv = Integer.parseInt(productInvField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.intValid(productInvField.getText())){
+            productInv = Integer.parseInt(productInvField.getText());
+        }else{
             invalid.setContentText("Must be a valid integer number!");
             invalid.show();
             return false;
         }
-        
-        if(productMinField.getText() == null){
-            return false;
-        }
-        try{
-        productMin = Integer.parseInt(productMinField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.intValid(productMaxField.getText())){
+            productMax = Integer.parseInt(productMaxField.getText());
+        }else{
             invalid.setContentText("Must be a valid integer number!");
             invalid.show();
             return false;
         }
-        
-        if(productMaxField.getText() == null){
-            return false;
-        }
-        try{
-        productMax = Integer.parseInt(productMaxField.getText());
-        }catch (NumberFormatException nfe) {
+        if(InventorySystemFXMLController.intValid(productMinField.getText())){
+            productMin = Integer.parseInt(productMinField.getText());
+        }else{
             invalid.setContentText("Must be a valid integer number!");
             invalid.show();
             return false;
         }
-        
         if(productMin > productMax){
             invalid.setContentText("Max must be greater than min!");
             invalid.show();
             return false;
         }
-        
-        if(productInv > productMax || productInv < productMin){
+         if(productInv > productMax || productInv < productMin){
             invalid.setContentText("Inventory must be between min/max!");
             invalid.show();
             return false;
         }
         return true;
+    }
+    
+    public void addAscPartButton(ActionEvent actionEvent){
+        if(chosenPart != null){
+            temp.addAssociatedPart(chosenPart);
+            productAscTable.setItems(temp.getAllAssociatedParts());
+        }else{
+            Alert warning = new Alert(Alert.AlertType.WARNING);
+            warning.setContentText("Please choose part!");
+            warning.show();
+        }
     }
     @FXML
     public void cancelButton(ActionEvent actionEvent){
@@ -138,4 +198,58 @@ public class AddProductInventoryFXMLController implements Initializable {
         Stage addProductStage = (Stage) cancelButton.getScene().getWindow();
         addProductStage.close();
     }
+    public void removeAscButton(ActionEvent actionEvent){
+    if(chosenAscPart!=null){
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setContentText("Please confirm!");
+        Optional<ButtonType> result = confirm.showAndWait();
+        if(!result.isPresent()){
+            chosenAscPart = null;
+        }else if(result.get() == ButtonType.OK){
+            temp.deleteAssociatedPart(chosenAscPart);
+            productAscTable.setItems(temp.getAllAssociatedParts());
+            chosenAscPart = null;
+        }else if(result.get() == ButtonType.CANCEL){
+            chosenAscPart = null;
+        }
+    }else{
+        Alert deleteAscPart = new Alert(Alert.AlertType.WARNING);
+        deleteAscPart.setContentText("Please select to remove");
+        deleteAscPart.show();
+    }
+    }
+    
+    public void saveProductButton(ActionEvent actionEvent){
+        if(validation()){
+            temp.setId(InventorySystemFXMLController.productId);
+            temp.setName(productNameField.getText());
+            temp.setPrice(Double.parseDouble(productPriceField.getText()));
+            temp.setStock(Integer.parseInt(productInvField.getText()));
+            temp.setMax(Integer.parseInt(productMaxField.getText()));
+            temp.setMin(Integer.parseInt(productMinField.getText()));
+            InventorySystemFXMLController.addProduct(temp);
+            InventorySystemFXMLController.increaseId(1);
+            Stage stage = (Stage) cancelButton.getScene().getWindow();
+            stage.close();
+        }
+    }
+    
+    public void searchParts(KeyEvent keyEvent){
+        if(keyEvent.getCode() == KeyCode.ENTER || productSearchField.getText() == ""){
+            int partInteger = Integer.parseInt(productSearchField.getText());
+            productTable.setItems(InventorySystemFXMLController.lookupPartId(InventorySystemFXMLController.lookupPart(partInteger)));
+        }else{
+            productTable.setItems(InventorySystemFXMLController.lookupPart(productSearchField.getText()));
+        }
+    }
+    
+    public void onProductTableClick(MouseEvent mouseEvent){
+        selectedPart();
+    }
+    public void onProductAscTableClick(MouseEvent mouseEvent){
+        selectedAscPart();
+    }
+    
 }
+
+

@@ -44,8 +44,8 @@
             <ButtonBar fx:id="productButtonBar" layoutX="164.0" layoutY="244.0" prefHeight="40.0" prefWidth="200.0">
                <buttons>
                   <Button fx:id="addProduct" mnemonicParsing="false" text="Add" onAction="#addProductButton"/>
-                  <Button fx:id="editProduct" mnemonicParsing="false" text="Modify" />
-                  <Button fx:id="deleteProduct" mnemonicParsing="false" text="Delete" />
+                  <Button fx:id="editProduct" mnemonicParsing="false" text="Modify" onAction="#updateProductButton" />
+                  <Button fx:id="deleteProduct" mnemonicParsing="false" text="Delete" onAction="#deleteProductButton"/>
                </buttons>
             </ButtonBar>
             <Label layoutX="11.0" layoutY="13.0" text="Products">
@@ -53,7 +53,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TableView fx:id="productTable" layoutX="13.0" layoutY="36.0" prefHeight="200.0" prefWidth="415.0">
+            <TableView fx:id="productTable" layoutX="13.0" layoutY="36.0" prefHeight="200.0" prefWidth="415.0" onMouseClicked="#productTableClick">
                <columns>
                   <TableColumn fx:id="productIdCol" prefWidth="83.0" text="Product ID" />
                   <TableColumn fx:id="productNameCol" prefWidth="95.0" text="Product Name" />
